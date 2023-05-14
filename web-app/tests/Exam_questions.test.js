@@ -273,8 +273,9 @@ describe("Question 5", function () {
         function () {
             const numbers = [1, 3, 5, 6];
             const exponent = 2;
-            const result = power_object(numbers, exponent).numbers;
-            if (!R.equals(result, numbers)) {
+            const result = power_object(numbers, exponent);
+            const expected = [1, 9, 25, 36];
+            if (!R.equals(result, expected)) {
                 throw new Error(
                     `For an input of ${JSON.stringify(numbers)} and ` +
                     `${exponent}, ${JSON.stringify(result)} was returned,` +
@@ -291,7 +292,7 @@ describe("Question 5", function () {
             const exponent = 3;
             const result = power_object(numbers, exponent);
             const expected = [1, 27, 125, 216];
-            if (!R.equals(result.powers, expected)) {
+            if (!R.equals(result, expected)) {
                 throw new Error(
                     `For an input of ${numbers} and ${exponent}` +
                     `${JSON.stringify(result)} was returned,` +
@@ -305,34 +306,50 @@ describe("Question 5", function () {
 const missing_character = Exam_questions.q6.missing_character;
 describe("Question 6", function () {
     it(
-        "Given a string, " +
-        "passing that string " +
-        "and that string with a single character appended, " +
-        "that is not included in the orignal string, " +
-        "returns that character",
+        "Given banana, " +
+        "passing banana " +
+        "and banana with a x " +
+        "that is included in banana, " +
+        "returns x",
         function () {
-            throw new Error("Implement this test yourself.");
+            const short_string = "banana";
+            const long_string = "bananax";
+            const result = missing_character(short_string, long_string);
+            const expected = "x";
+            if (!R.equals(result, expected)) {
+                throw new Error(
+                    `For an input of short_string = ${short_string},` +
+                    `and long_string = ${long_string},`
+                    `${JSON.stringify(result)} was returned,` +
+                    `when ${JSON.stringify(expected)} was expected`
+                );
+            }
         }
     );
 
     it(
-        "Given a string, " +
-        "passing that string " +
-        "and that string with a single character appended " +
-        "that is included in the orignal string, " +
-        "returns that character",
+        "Given notes and toepsn, it should return p",
         function () {
-            throw new Error("Implement this test yourself.");
+            const short_string = "notes";
+            const long_string = "toepsn";
+            const result = missing_character(short_string, long_string);
+            const expected = "p";
+            if (!R.equals(result, expected)) {
+                throw new Error(`A result of ${expected} was expected, but ${result} was returned instead`);
+            }
         }
     );
 
     it(
-        "Given a string and a character, " +
-        "appending that character to the string and shuffling" +
-        "then passing the original and new string to missing_character",
-        "returns that character",
+        "Given crosses and ssscroett, it should return undefined",
         function () {
-            throw new Error("Implement this test yourself.");
+            const short_string = "crosses";
+            const long_string = "ssscroett";
+            const result = missing_character(short_string, long_string);
+            const expected = undefined;
+            if (!R.equals(result, expected)) {
+                throw new Error(`A result of ${expected} was expected, but ${result} was returned`);
+            }
         }
     );
 
@@ -340,7 +357,13 @@ describe("Question 6", function () {
         "Given two strings with lengths that differ by not exactly 1," +
         "undefined is always returned",
         function () {
-            throw new Error("Implement this test yourself.");
+            const short_string = "west";
+            const long_string = "weston";
+            const result = missing_character(short_string, long_string);
+            const expected = undefined;
+            if (!R.equals(result,expected)){
+                throw new Error(`${expected} was expected, but ${result} was returned instead.`);
+            }
         }
     );
 });
@@ -348,11 +371,46 @@ describe("Question 6", function () {
 const even_digits = Exam_questions.q7.even_digits;
 describe("Question 7", function () {
     it(
-        "Define and implement your own tests for this question",
+        "Given number 2 and 27, the correct array of numbers should be returned",
         function () {
-            throw new Error(
-                "Define and implement your own tests for this question"
-            );
+            const a = 2;
+            const b = 27;
+            const result = even_digits(a,b);
+            const expected = [2,4,6,8,10,12,14,16,18,20,22,24,26];
+            if (!R.equals(result,expected)){
+                throw new Error(
+                    `${expected} was expected, but ${result} was returned instead.`
+                );
+            }
         }
     );
+    it(
+        "Given 4 and 4, 4 should be returned.",
+        function () {
+            const a = 4
+            const b = 4
+            const result = even_digits(a,b);
+            const expected = [4];
+            if (!R.equals(result,expected)){
+                throw new Error(
+                    `${expected} was expected, but ${result} was returned instead.`
+                );
+            }
+
+        }
+    )
+    it (
+        "Given a = 1 and b = 1, an empty array should be returned.",
+        function () {
+            const a = 1;
+            const b = 1;
+            const result = even_digits(a,b);
+            const expected = [];
+            if (!R.equals(result,expected)){
+                throw new Error(
+                    `${expected} was expected, but ${result} was returned instead.`
+                );
+            }
+        }
+    )
 });

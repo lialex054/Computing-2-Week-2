@@ -1,5 +1,7 @@
 // import R from "./ramda.js";
 
+import { empty } from "ramda";
+
 /**
  * This file is an adaption of the Computing 1 exam into Javascript.
  * @namespace Exam_questions
@@ -27,7 +29,15 @@ const Exam_questions = {
  * @example shortest_word(["hello", "cat", "ok", "12345"]) // "ok";
  */
 Exam_questions.q1.shortest_word = function (word_array) {
-};
+    let shortest = word_array[0];
+    for (let i = 0; i < word_array.length; i++) {
+        if (word_array[i].length < shortest.length) {
+            shortest = word_array[i];
+        };
+    };
+    return shortest
+
+    };
 
 /**
  * Write a function to find the sum of all the numerical values in a list
@@ -40,6 +50,14 @@ Exam_questions.q1.shortest_word = function (word_array) {
  * @example sum_of_numbers(["hello", "cat", 2, true, 17, undefined]) // 19;
  */
 Exam_questions.q2.sum_of_numbers = function (array_of_any_type) {
+    const sum = array_of_any_type.reduce( (sumSoFar, nextValue) => {
+        if ( typeof nextValue === "number" && isFinite(nextValue) ) {
+           return sumSoFar + nextValue;
+        }
+        //skip otherwise
+        return sumSoFar;
+     }, 0);
+     return sum //sum starting from zero
 };
 
 /**
@@ -64,10 +82,24 @@ Exam_questions.q2.sum_of_numbers = function (array_of_any_type) {
  *   // "never odd or even"
  */
 Exam_questions.q3.longest_palindrome = function (string_array) {
+    if (string_array.length === 0) {
+        return undefined
+    };
+    let longest = ""
+    string_array.forEach(function(a){
+        const b = a.replace(/\s/g, "")
+        const reverse = b.split("").reverse().join("")
+        if (reverse === b && a.length > longest.length) {
+            longest = a;
+        }
+    });
+    return (
+        longest.length > 0 ? longest : undefined
+    )
 };
 
 /**
- * Write a function that, given two integer inputs a and b (with a > b),
+ * Write a function that, given two integer inputs a and b (with a < b),
  * returns a list of all the numbers between a and b (a and b included)
  * whose square root is an integer.
  * @memberof! Exam_questions
@@ -78,8 +110,14 @@ Exam_questions.q3.longest_palindrome = function (string_array) {
  * @example perfect_squares(2, 16) // [4, 9, 16]
  */
 Exam_questions.q4.perfect_squares = function (a, b) {
+    let empty_array = []
+    for (let i = a; i <= b; i++) {
+        if (Math.sqrt(i) % 1 === 0){
+            empty_array.push(i)
+        }
+    };
+    return empty_array
 };
-
 /**
  * Write a function that, given a list of numbers and an integer
  * returns an object with two keys: "numbers" and "powers".
@@ -94,6 +132,10 @@ Exam_questions.q4.perfect_squares = function (a, b) {
  *   // {"numbers": [1, 3, 5, 6], "powers": [1, 9, 25, 36]}
  */
 Exam_questions.q5.power_object = function (numbers, exponent) {
+    let emptyArray = numbers.map(function(element){
+        return Math.pow(element,exponent)
+    });
+    return emptyArray
 };
 
 /**
@@ -112,6 +154,34 @@ Exam_questions.q5.power_object = function (numbers, exponent) {
  * @example missing_character("hello", "hellonn") // undefined
  */
 Exam_questions.q6.missing_character = function (short_string, long_string) {
+    if (long_string.length !== short_string.length + 1){
+        return undefined
+    }
+    else {
+        const map = {}
+        for (let i = 0; i < long_string.length; i++){
+            if (long_string[i] in map){
+                map[long_string[i]] += 1
+            }
+            else {
+                map[long_string[i]] = 1
+            }
+        }
+        for (let j = 0; j < short_string.length; j++){
+            if (short_string[j] in map){
+                map[short_string[j]] -= 1
+                if (map[short_string[j]] === 0){
+                    delete map[short_string[j]]
+                }
+            }
+        }
+        if (Object.keys(map).length !== 1){
+            return undefined
+        }
+        for(var i in map){
+            return i
+        }
+    }
 };
 
 /**
@@ -123,9 +193,16 @@ Exam_questions.q6.missing_character = function (short_string, long_string) {
  * @param a The start of the range.
  * @param b The end of the range.
  * @returns {number[]} A list of numbers with only even digits.
- * @example even_digits(2, 27) // [2, 4, 6, 8, 20, 22, 24, 26]
+ * @example even_digits(2, 27) // [2, 4, 6 ... 20, 22, 24, 26]
  */
 Exam_questions.q7.even_digits = function (a, b) {
+    let emptyArray = []
+    for (let i = a; i<= b; i++) {
+        if (i % 2 === 0){
+            emptyArray.push(i)
+        }
+    }
+    return emptyArray
 };
 
 /**
