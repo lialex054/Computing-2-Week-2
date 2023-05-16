@@ -50,14 +50,13 @@ Exam_questions.q1.shortest_word = function (word_array) {
  * @example sum_of_numbers(["hello", "cat", 2, true, 17, undefined]) // 19;
  */
 Exam_questions.q2.sum_of_numbers = function (array_of_any_type) {
-    const sum = array_of_any_type.reduce( (sumSoFar, nextValue) => {
-        if ( typeof nextValue === "number" && isFinite(nextValue) ) {
-           return sumSoFar + nextValue;
-        }
-        //skip otherwise
-        return sumSoFar;
-     }, 0);
-     return sum //sum starting from zero
+    let sum = 0;
+    for (let i = 0; i<array_of_any_type.length; i++){
+        if (typeof array_of_any_type[i] === "number" && Math.floor(array_of_any_type[i])){
+            sum += array_of_any_type[i];
+        } 
+    }
+    return sum
 };
 
 /**
